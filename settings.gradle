@@ -1,0 +1,3 @@
+include ':framework_comutils'
+include ':app'
+rootProject.name = "Mars-MutiTools"
