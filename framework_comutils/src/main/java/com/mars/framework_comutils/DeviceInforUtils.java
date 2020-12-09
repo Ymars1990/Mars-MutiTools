@@ -7,6 +7,9 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.WindowManager;
 
 import java.util.Locale;
 import java.util.UUID;
@@ -47,11 +50,12 @@ public class DeviceInforUtils {
     /**
      * 获取手机主板名
      *
-     * @return  主板名
+     * @return 主板名
      */
     public static String getDeviceBoand() {
         return Build.BOARD;
     }
+
     /**
      * 获取设备型号
      *
@@ -136,5 +140,71 @@ public class DeviceInforUtils {
             preferences.edit().putString(key, uuid).apply();
         }
         return uuid;
+    }
+
+    /**
+     * 获取屏幕宽度  单位:px      exp：1440x720像素
+     */
+    public static int getDevWidth(Context mCtx) {
+        WindowManager windowManager = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metric = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getRealMetrics(metric);
+        int width = metric.widthPixels;     // 屏幕宽度（像素）
+        return width;
+    }
+
+    /**
+     * 获取屏幕高度 单位:px
+     */
+    public static int getDevHeight(Context mCtx) {
+        WindowManager windowManager = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metric = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(metric);
+        int height = metric.heightPixels;   // 屏幕高度（像素）
+        return height;
+    }
+
+    /**
+     * 获取屏幕宽度  单位:px      exp：1440x720像素
+     */
+    public static int getDevRealWidth(Context mCtx) {
+        WindowManager windowManager = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metric = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(metric);
+        int width = metric.widthPixels;     // 屏幕宽度（像素）
+        return width;
+    }
+
+    /**
+     * 获取屏幕高度 单位:px
+     */
+    public static int getDevRealHeight(Context mCtx) {
+        WindowManager windowManager = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metric = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getRealMetrics(metric);
+        int height = metric.heightPixels;   // 屏幕高度（像素）
+        return height;
+    }
+
+    /**
+     * 获取屏幕密度 单位:px
+     */
+    public static float getDevDensity(Context mCtx) {
+        WindowManager windowManager = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metric = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(metric);
+        float density = metric.density;      // 屏幕密度（0.75 / 1.0 / 1.5）
+        return density;
+    }
+
+    /**
+     * 获取屏幕密度DPI 单位:px
+     */
+    public static int getDevDensityDpi(Context mCtx) {
+        WindowManager windowManager = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metric = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(metric);
+        int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）
+        return densityDpi;
     }
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.mars.framework_comutils.DensityUtils;
 import com.mars.framework_comutils.DeviceInforUtils;
 import com.mars.framework_comutils.LogUtils;
 
@@ -30,5 +31,19 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             LogUtils.logI(TAG, String.format("设备IMEI:%s", DeviceInforUtils.getIMEI(this)));
         }
+        LogUtils.logI(TAG, String.format("设备宽度（px）:%s", DeviceInforUtils.getDevWidth(this)));
+        LogUtils.logI(TAG, String.format("设备高度（px）:%s", DeviceInforUtils.getDevHeight(this)));
+        LogUtils.logI(TAG, String.format("设备真实宽度（px）:%s", DeviceInforUtils.getDevRealWidth(this)));
+        LogUtils.logI(TAG, String.format("设备真实高度（px）:%s", DeviceInforUtils.getDevRealHeight(this)));
+        LogUtils.logI(TAG, String.format("设备屏幕密度（px）:%s", DeviceInforUtils.getDevDensity(this)));
+        LogUtils.logI(TAG, String.format("设备屏幕密度DPI（px）:%s", DeviceInforUtils.getDevDensityDpi(this)));
+
+        LogUtils.logI(TAG, String.format("设备dp2px:%s", DensityUtils.dp2px(this, 100)));
+        LogUtils.logI(TAG, String.format("设备px2dp:%s", DensityUtils.px2dp(this, 100)));
+
+        LogUtils.logI(TAG, String.format("设备px2sp:%s", DensityUtils.px2sp(this, 100)));
+        LogUtils.logI(TAG, String.format("设备sp2px:%s", DensityUtils.sp2px(this, 100)));
     }
+
+
 }
