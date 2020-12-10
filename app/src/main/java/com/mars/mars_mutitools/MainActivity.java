@@ -1,21 +1,29 @@
 package com.mars.mars_mutitools;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mars.framework_comutils.DensityUtils;
 import com.mars.framework_comutils.DeviceInforUtils;
 import com.mars.framework_comutils.LogUtils;
+import com.tencent.mmkv.MMKV;
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = MainActivity.class.getSimpleName();
+
+    private TextView showTv;
+    int n = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        showTv = findViewById(R.id.showTv);
+
         LogUtils.logI(TAG, "onCreate");
         LogUtils.logI(TAG, String.format("设备产商:%s", DeviceInforUtils.getDeviceBrand()));
         LogUtils.logI(TAG, String.format("设备系统语言:%s", DeviceInforUtils.getSystemLanguage()));
@@ -38,11 +46,20 @@ public class MainActivity extends AppCompatActivity {
         LogUtils.logI(TAG, String.format("设备屏幕密度（px）:%s", DeviceInforUtils.getDevDensity(this)));
         LogUtils.logI(TAG, String.format("设备屏幕密度DPI（px）:%s", DeviceInforUtils.getDevDensityDpi(this)));
 
-        LogUtils.logI(TAG, String.format("设备dp2px:%s", DensityUtils.dp2px(this, 100)));
-        LogUtils.logI(TAG, String.format("设备px2dp:%s", DensityUtils.px2dp(this, 100)));
 
-        LogUtils.logI(TAG, String.format("设备px2sp:%s", DensityUtils.px2sp(this, 100)));
-        LogUtils.logI(TAG, String.format("设备sp2px:%s", DensityUtils.sp2px(this, 100)));
+
+        MMKV kv = MMKV.defaultMMKV();
+        n = kv.decodeInt("test");
+        LogUtils.logI(TAG, n);
+        showTv.setText(String.format("Hello:%s", kv.decodeInt("test")));
+        showTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                n++;
+                kv.encode("test", n);
+                showTv.setText(String.format("Hello:%s", kv.decodeInt("test")));
+            }
+        });
     }
 
 
