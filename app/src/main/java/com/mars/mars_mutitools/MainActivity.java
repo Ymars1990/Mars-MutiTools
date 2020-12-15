@@ -2,14 +2,12 @@ package com.mars.mars_mutitools;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mars.framework_comutils.DensityUtils;
-import com.mars.framework_comutils.DeviceInforUtils;
-import com.mars.framework_comutils.LogUtils;
+import com.mars.framework_comutils_java.DeviceInforUtils;
+import com.mars.framework_comutils_java.LogUtils;
 import com.tencent.mmkv.MMKV;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,18 +45,14 @@ public class MainActivity extends AppCompatActivity {
         LogUtils.logI(TAG, String.format("设备屏幕密度DPI（px）:%s", DeviceInforUtils.getDevDensityDpi(this)));
 
 
-
         MMKV kv = MMKV.defaultMMKV();
         n = kv.decodeInt("test");
         LogUtils.logI(TAG, n);
         showTv.setText(String.format("Hello:%s", kv.decodeInt("test")));
-        showTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                n++;
-                kv.encode("test", n);
-                showTv.setText(String.format("Hello:%s", kv.decodeInt("test")));
-            }
+        showTv.setOnClickListener(v -> {
+            n++;
+            kv.encode("test", n);
+            showTv.setText(String.format("Hello:%s", kv.decodeInt("test")));
         });
     }
 

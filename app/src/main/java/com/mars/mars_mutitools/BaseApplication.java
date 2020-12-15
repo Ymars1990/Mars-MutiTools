@@ -2,7 +2,7 @@ package com.mars.mars_mutitools;
 
 import androidx.multidex.MultiDexApplication;
 
-import com.mars.framework_comutils.LogUtils;
+import com.mars.framework_comutils_java.LogUtils;
 import com.tencent.mmkv.MMKV;
 
 public class BaseApplication extends MultiDexApplication {

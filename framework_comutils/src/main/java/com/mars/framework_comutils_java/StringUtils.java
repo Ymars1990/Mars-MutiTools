@@ -1,4 +1,4 @@
-package com.mars.framework_comutils;
+package com.mars.framework_comutils_java;
 
 public class StringUtils {
     //对象转String

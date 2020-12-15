@@ -1,4 +1,4 @@
-package com.mars.framework_comutils;
+package com.mars.framework_comutils_java;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.WindowManager;
 
 import java.util.Locale;
