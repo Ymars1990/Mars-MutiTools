@@ -1,7 +1,7 @@
 package com.mars.mars_mutitools;
 
 import android.os.Build;
-import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.mars.framework_base.base_java.BaseActivity;
@@ -10,7 +10,6 @@ import com.mars.framework_comutils_java.LogUtils;
 import com.mars.framework_comutils_java.ScreenUtils;
 import com.mars.framework_comutils_java.StringUtils;
 import com.mars.framework_comutils_java.SystemUtils;
-import com.mars.framework_comutils_kotlin.KtStringUtils;
 import com.tencent.mmkv.MMKV;
 
 public class MainActivity extends BaseActivity {
@@ -68,19 +67,6 @@ public class MainActivity extends BaseActivity {
         });
 
         LogUtils.logI(TAG, "开始时间：" + System.currentTimeMillis());
-        LogUtils.logI(TAG, KtStringUtils.Companion.objs2String(null));
-        LogUtils.logI(TAG, KtStringUtils.Companion.objs2String("ss"));
-        LogUtils.logI(TAG, KtStringUtils.Companion.objs2String(1));
-        LogUtils.logI(TAG, KtStringUtils.Companion.objs2String(3.11f));
-        LogUtils.logI(TAG, KtStringUtils.Companion.objs2String(0x02));
-        LogUtils.logI(TAG, KtStringUtils.Companion.isNullString(" "));
-        LogUtils.logI(TAG, KtStringUtils.Companion.isNullString(""));
-        LogUtils.logI(TAG, KtStringUtils.Companion.isNullString(null));
-        LogUtils.logI(TAG, KtStringUtils.Companion.isNotNullString(null));
-        LogUtils.logI(TAG, KtStringUtils.Companion.isNullString("111"));
-        LogUtils.logI(TAG, "结束时间：" + System.currentTimeMillis());
-
-        LogUtils.logI(TAG, "开始时间：" + System.currentTimeMillis());
         LogUtils.logI(TAG, StringUtils.objs2String(null));
         LogUtils.logI(TAG, StringUtils.objs2String("ss"));
         LogUtils.logI(TAG, StringUtils.objs2String(1));
@@ -104,4 +90,8 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }
