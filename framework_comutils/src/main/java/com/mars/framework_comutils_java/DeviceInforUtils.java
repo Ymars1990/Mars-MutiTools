@@ -1,15 +1,19 @@
 package com.mars.framework_comutils_java;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
+import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -24,7 +28,8 @@ public class DeviceInforUtils {
      * @return 返回当前系统语言。例如：当前设置的是“中文-中国”，则返回“zh-CN”
      */
     public static String getSystemLanguage() {
-        return Locale.getDefault().getLanguage();
+        return
+                String.format("%s(%s)", Locale.getDefault().getLanguage(), Locale.getDefault().getDisplayLanguage());
     }
 
     /**
@@ -33,7 +38,12 @@ public class DeviceInforUtils {
      * @return 语言列表
      */
     public static String getSystemLanguageList() {
-        return Locale.getAvailableLocales().toString();
+        StringBuffer stringBuffer = new StringBuffer();
+        for (Locale str : Locale.getAvailableLocales()) {
+            stringBuffer.append(str.getDisplayLanguage()).append(",");
+        }
+
+        return stringBuffer.toString();
     }
 
     /**
@@ -87,6 +97,49 @@ public class DeviceInforUtils {
     }
 
     /**
+     * 获取系统字体大小
+     */
+    public static float getFontSize(Context mCtx) {
+        // 获取系统字体大小
+        Configuration mCurConfig = new Configuration();
+        try {
+            // 获取ActivityManagerNative类的对象activityManagerNative
+            Class<?> activityManagerNative = Class
+                    .forName("android.app.ActivityManagerNative");
+            /*
+             * 获得可调用getConfiguration方法的对象oam（调用getDefault方法得到的东西）
+             * getMethod：获取AMN类中的getDefault方法
+             * invoke：通过activityManagerNative对象调用getDefault方法
+             */
+            Object oam = activityManagerNative.getMethod("getDefault")
+                    .invoke(activityManagerNative);
+            // 获取getConfiguration方法并通过oam对象调用，得到config对象
+            Object config =
+                    oam.getClass().getMethod("getConfiguration")
+                            .invoke(oam);
+            mCurConfig.updateFrom((Configuration) config);
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            return mCurConfig.fontScale;
+        }
+
+    }
+
+    /**
      * 获取设备序列号
      */
     public static String getSerialNumber() {
@@ -117,7 +170,7 @@ public class DeviceInforUtils {
      * @return 设备IMEI
      */
     public static String getAndroidId(Context context) {
-        return Settings.System.getString(context.getContentResolver(), Settings.System.ANDROID_ID);
+        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     /**
@@ -141,69 +194,5 @@ public class DeviceInforUtils {
         return uuid;
     }
 
-    /**
-     * 获取屏幕宽度  单位:px      exp：1440x720像素
-     */
-    public static int getDevWidth(Context mCtx) {
-        WindowManager windowManager = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics metric = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getRealMetrics(metric);
-        int width = metric.widthPixels;     // 屏幕宽度（像素）
-        return width;
-    }
 
-    /**
-     * 获取屏幕高度 单位:px
-     */
-    public static int getDevHeight(Context mCtx) {
-        WindowManager windowManager = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics metric = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getMetrics(metric);
-        int height = metric.heightPixels;   // 屏幕高度（像素）
-        return height;
-    }
-
-    /**
-     * 获取屏幕宽度  单位:px      exp：1440x720像素
-     */
-    public static int getDevRealWidth(Context mCtx) {
-        WindowManager windowManager = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics metric = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getMetrics(metric);
-        int width = metric.widthPixels;     // 屏幕宽度（像素）
-        return width;
-    }
-
-    /**
-     * 获取屏幕高度 单位:px
-     */
-    public static int getDevRealHeight(Context mCtx) {
-        WindowManager windowManager = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics metric = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getRealMetrics(metric);
-        int height = metric.heightPixels;   // 屏幕高度（像素）
-        return height;
-    }
-
-    /**
-     * 获取屏幕密度 单位:px
-     */
-    public static float getDevDensity(Context mCtx) {
-        WindowManager windowManager = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics metric = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getMetrics(metric);
-        float density = metric.density;      // 屏幕密度（0.75 / 1.0 / 1.5）
-        return density;
-    }
-
-    /**
-     * 获取屏幕密度DPI 单位:px
-     */
-    public static int getDevDensityDpi(Context mCtx) {
-        WindowManager windowManager = (WindowManager) mCtx.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics metric = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getMetrics(metric);
-        int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）
-        return densityDpi;
-    }
 }
