@@ -28,9 +28,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         Configuration newConfig = resources.getConfiguration();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
 
-        if (resources != null && newConfig.fontScale != 1) {
+        if (newConfig.fontScale != 1) {
             newConfig.fontScale = 1;
-            if (Build.VERSION.SDK_INT >= 17) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Context configurationContext = createConfigurationContext(newConfig);
                 resources = configurationContext.getResources();
                 displayMetrics.scaledDensity = displayMetrics.density * newConfig.fontScale;
