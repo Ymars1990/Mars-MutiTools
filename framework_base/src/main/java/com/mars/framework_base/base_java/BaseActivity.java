@@ -11,7 +11,8 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
-
+    //字体大小是否跟随系统
+    protected boolean resIsFollowSystem = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,24 +22,28 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         initView();
     }
 
-    //字体大小不跟随系统
+
     @Override
     public Resources getResources() {
-        Resources resources = super.getResources();
-        Configuration newConfig = resources.getConfiguration();
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        if (resIsFollowSystem) {
+            return super.getResources();
+        } else {
+            Resources resources = super.getResources();
+            Configuration newConfig = resources.getConfiguration();
+            DisplayMetrics displayMetrics = resources.getDisplayMetrics();
 
-        if (newConfig.fontScale != 1) {
-            newConfig.fontScale = 1;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Context configurationContext = createConfigurationContext(newConfig);
-                resources = configurationContext.getResources();
-                displayMetrics.scaledDensity = displayMetrics.density * newConfig.fontScale;
-            } else {
-                resources.updateConfiguration(newConfig, displayMetrics);
+            if (newConfig.fontScale != 1) {
+                newConfig.fontScale = 1;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Context configurationContext = createConfigurationContext(newConfig);
+                    resources = configurationContext.getResources();
+                    displayMetrics.scaledDensity = displayMetrics.density * newConfig.fontScale;
+                } else {
+                    resources.updateConfiguration(newConfig, displayMetrics);
+                }
             }
+            return resources;
         }
-        return resources;
     }
 
     /**
