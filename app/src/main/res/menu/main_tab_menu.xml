@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab01"
+        android:orderInCategory="1"
+        android:title="Tab01" />
+
+
+    <item
+        android:id="@+id/tab02"
+        android:orderInCategory="2"
+        android:title="Tab02" />
+
+
+    <item
+        android:id="@+id/tab03"
+        android:orderInCategory="3"
+        android:title="Tab03" />
+
+    <item
+        android:id="@+id/tab04"
+        android:orderInCategory="4"
+        android:title="Tab04" />
+
+    <item
+        android:id="@+id/tab05"
+        android:orderInCategory="5"
+        android:title="Tab05" />
+</menu>

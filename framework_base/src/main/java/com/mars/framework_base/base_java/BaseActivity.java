@@ -10,13 +10,18 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mars.framework_comutils_java.LogUtils;
+
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
     //字体大小是否跟随系统
     protected boolean resIsFollowSystem = false;
+    protected String TAG = BaseActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TAG = this.getClass().getSimpleName();
+        LogUtils.logI(TAG, "生命周期","onCreate");
         setContentView(setLayout());
         initData();
         initView();
@@ -44,6 +49,24 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             }
             return resources;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LogUtils.logI(TAG, "生命周期","onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LogUtils.logI(TAG, "生命周期","onPause");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogUtils.logI(TAG, "生命周期","onDestroy");
     }
 
     /**
