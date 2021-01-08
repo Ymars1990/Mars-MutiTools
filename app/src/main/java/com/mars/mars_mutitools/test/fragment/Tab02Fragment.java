@@ -1,4 +1,4 @@
-package com.mars.mars_mutitools.test;
+package com.mars.mars_mutitools.test.fragment;
 
 import android.view.View;
 import android.widget.TextView;
@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.mars.framework_base.base_java.BaseFragment;
 import com.mars.mars_mutitools.R;
 
-public class Tab04Fragment extends BaseFragment {
+public class Tab02Fragment extends BaseFragment {
 
     private TextView tv;
 

@@ -1,4 +1,4 @@
-package com.mars.mars_mutitools.test;
+package com.mars.mars_mutitools.test.fragment;
 
 import android.view.View;
 import android.widget.TextView;

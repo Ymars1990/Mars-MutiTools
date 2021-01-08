@@ -9,22 +9,46 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.Observer;
 
+import com.mars.framework_base.R;
+import com.mars.framework_base.databinding.ActivityBaseBinding;
 import com.mars.framework_comutils_java.LogUtils;
+import com.mars.framework_comutils_java.annotation.LoadStatus;
 
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public abstract class BaseActivity<DB extends ViewDataBinding, VM extends BaseViewModel> extends AppCompatActivity implements View.OnClickListener {
     //字体大小是否跟随系统
     protected boolean resIsFollowSystem = false;
     protected String TAG = BaseActivity.class.getSimpleName();
+
+    protected DB mDataBinding;
+    protected VM mViewModel;
+
+    private ActivityBaseBinding mActivityBaseBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TAG = this.getClass().getSimpleName();
-        LogUtils.logI(TAG, "生命周期","onCreate");
-        setContentView(setLayout());
+        LogUtils.logI(TAG, "生命周期", "onCreate");
+        mActivityBaseBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
+        mDataBinding = DataBindingUtil.inflate(getLayoutInflater(), setLayout(),
+                mActivityBaseBinding.flContentContainer, true);
+
+        mDataBinding.setLifecycleOwner(this);
         initData();
-        initView();
+        initViewModel();
+        bindViewModel();
+
+        initLoadState();
+
+
+        // ViewModel订阅生命周期事件
+        if (mViewModel != null) {
+            getLifecycle().addObserver(mViewModel);
+        }
     }
 
 
@@ -54,20 +78,41 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onResume() {
         super.onResume();
-        LogUtils.logI(TAG, "生命周期","onResume");
+        LogUtils.logI(TAG, "生命周期", "onResume");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        LogUtils.logI(TAG, "生命周期","onPause");
+        LogUtils.logI(TAG, "生命周期", "onPause");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        LogUtils.logI(TAG, "生命周期","onDestroy");
+        LogUtils.logI(TAG, "生命周期", "onDestroy");
     }
+
+    private void initLoadState() {
+        if (mViewModel != null) {
+            mViewModel.loadState.observe(this, new Observer<LoadStatus>() {
+                @Override
+                public void onChanged(LoadStatus loadState) {
+
+                }
+            });
+        }
+    }
+
+    /**
+     * 初始化ViewModel
+     */
+    protected abstract void initViewModel();
+
+    /**
+     * 绑定ViewModel
+     */
+    protected abstract void bindViewModel();
 
     /**
      * 设置布局
@@ -83,21 +128,4 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     protected abstract void initData();
 
-    /**
-     * 初始化布局
-     *
-     * @return
-     */
-    protected abstract void initView();
-
-    /**
-     * 简化findViewById()
-     *
-     * @param resId
-     * @param <T>
-     * @return
-     */
-    protected <T extends View> T fvbi(int resId) {
-        return (T) findViewById(resId);
-    }
 }

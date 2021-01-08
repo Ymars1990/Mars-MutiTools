@@ -5,31 +5,31 @@
     android:id="@+id/mainNavigation"
     app:startDestination="@id/tab01">
 
-    <fragment
+    <fixFragment
         android:id="@+id/tab01"
-        android:name="com.mars.mars_mutitools.test.Tab01Fragment"
+        android:name="com.mars.mars_mutitools.test.fragment.Tab01Fragment"
         tools:layout="@layout/fragment_tab01">
 
-    </fragment>
+    </fixFragment>
 
-    <fragment
+    <fixFragment
         android:id="@+id/tab02"
-        android:name="com.mars.mars_mutitools.test.Tab02Fragment"
+        android:name="com.mars.mars_mutitools.test.fragment.Tab02Fragment"
         tools:layout="@layout/fragment_tab01">
 
-    </fragment>
-    <fragment
+    </fixFragment>
+    <fixFragment
         android:id="@+id/tab03"
-        android:name="com.mars.mars_mutitools.test.Tab03Fragment"
+        android:name="com.mars.mars_mutitools.test.fragment.Tab03Fragment"
         tools:layout="@layout/fragment_tab01" />
-    <fragment
+    <fixFragment
         android:id="@+id/tab04"
-        android:name="com.mars.mars_mutitools.test.Tab04Fragment"
+        android:name="com.mars.mars_mutitools.test.fragment.Tab04Fragment"
         tools:layout="@layout/fragment_tab01">
 
-    </fragment>
-    <fragment
+    </fixFragment>
+    <fixFragment
         android:id="@+id/tab05"
-        android:name="com.mars.mars_mutitools.test.Tab05Fragment"
+        android:name="com.mars.mars_mutitools.test.fragment.Tab05Fragment"
         tools:layout="@layout/fragment_tab01" />
 </navigation>

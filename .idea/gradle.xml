@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/framework_base" />
             <option value="$PROJECT_DIR$/framework_comutils" />
+            <option value="$PROJECT_DIR$/framework_net" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
