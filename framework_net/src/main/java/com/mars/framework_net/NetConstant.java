@@ -12,4 +12,8 @@ public class NetConstant {
 
     //请求code
     public static final int REQUSET_SUCCESS_CODE = 0x00;
+
+    public static final String RESPONSE_CODE = "errorCode";
+    public static final String RESPONSE_MSG = "errorMsg";
+    public static final String RESPONSE_DATA = "data";
 }

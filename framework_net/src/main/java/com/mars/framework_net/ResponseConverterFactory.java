@@ -18,6 +18,9 @@ import okhttp3.MediaType;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
 
+import static com.mars.framework_net.NetConstant.RESPONSE_CODE;
+import static com.mars.framework_net.NetConstant.RESPONSE_DATA;
+import static com.mars.framework_net.NetConstant.RESPONSE_MSG;
 import static okhttp3.internal.Util.UTF_8;
 
 /**
@@ -38,13 +41,13 @@ class ResponseConverterFactory<T> implements Converter<ResponseBody, T> {
         String jsonString = value.string();
         try {
             JSONObject object = new JSONObject(jsonString);
-            int status = object.getInt("errorCode");
+            int status = object.getInt(RESPONSE_CODE);
             if (status == NetConstant.REQUSET_SUCCESS_CODE) {
-                if (!StringUtils.isNotNullString(object.getString("data"))) {
+                if (!StringUtils.isNotNullString(object.getString(RESPONSE_DATA))) {
                     throw new HttpException(status, "请求数据异常[0xE1]");
                 }
             } else {
-                if (!StringUtils.isNotNullString(object.getString("errorMsg"))) {
+                if (!StringUtils.isNotNullString(object.getString(RESPONSE_MSG))) {
                     throw new HttpException(status, "请求数据异常[0xE2]");
                 }
             }

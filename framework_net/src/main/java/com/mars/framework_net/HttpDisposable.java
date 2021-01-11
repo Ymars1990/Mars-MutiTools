@@ -19,7 +19,11 @@ public abstract class HttpDisposable<T> extends DisposableObserver<T> {
 
     @Override
     public void onError(Throwable e) {
-        onError(e, 0xEE, String.format("异常[%s]", e.getMessage()));
+        if (e instanceof HttpException) {
+            onError(e, ((HttpException) e).getCode(), ((HttpException) e).getMessage());
+        } else {
+            onError(e, 0xEE, String.format("异常[%s]", e.getMessage()));
+        }
     }
 
     @Override
