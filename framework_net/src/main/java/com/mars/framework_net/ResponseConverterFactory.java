@@ -4,6 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.mars.framework_comutils_java.LogUtils;
+import com.mars.framework_comutils_java.StringUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -31,18 +35,25 @@ class ResponseConverterFactory<T> implements Converter<ResponseBody, T> {
 
     @Override
     public T convert(ResponseBody value) throws IOException {
-        String response = value.string();
-        MediaType mediaType = value.contentType();
-        Charset charset = mediaType != null ? mediaType.charset(UTF_8) : UTF_8;
-        ByteArrayInputStream bis = new ByteArrayInputStream(response.getBytes());
-        InputStreamReader reader = new InputStreamReader(bis, charset);
-
-        JsonReader jsonReader = gson.newJsonReader(reader);
+        String jsonString = value.string();
         try {
-            return adapter.read(jsonReader);
-        } catch (Exception e) {
-            LogUtils.logI("Exception", e.getMessage());
-            throw new HttpException(0xEE, e.getMessage());
+            JSONObject object = new JSONObject(jsonString);
+            int status = object.getInt("errorCode");
+            if (status == NetConstant.REQUSET_SUCCESS_CODE) {
+                if (!StringUtils.isNotNullString(object.getString("data"))) {
+                    throw new HttpException(status, "请求数据异常[0xE1]");
+                }
+            } else {
+                if (!StringUtils.isNotNullString(object.getString("errorMsg"))) {
+                    throw new HttpException(status, "请求数据异常[0xE2]");
+                }
+            }
+            return adapter.fromJson(object.getString("data"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            //数据解析异常
+            throw new HttpException(0xE3, String.format("请求数据解析异常[%s][0xE3]", e.getMessage()));
         } finally {
             value.close();
         }

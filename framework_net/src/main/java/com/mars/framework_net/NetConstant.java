@@ -11,5 +11,5 @@ public class NetConstant {
     public static final long WRITE_TIMEOUT = 60;
 
     //请求code
-    public static final int REQUSET_SUCCESS_CODE = 0x01;
+    public static final int REQUSET_SUCCESS_CODE = 0x00;
 }

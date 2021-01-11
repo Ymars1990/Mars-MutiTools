@@ -14,9 +14,6 @@ import retrofit2.Retrofit;
 
 /**
  * File descripition: 重写gson 判断返回值  状态划分
- *
- * @author lp
- * @date 2018/8/24
  */
 
 /**
@@ -55,28 +52,6 @@ public final class BaseGsonConverterFactory extends Converter.Factory {
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations,
                                                             Retrofit retrofit) {
-//        if (String.class.equals(type)) {
-//            //如果需要处理的类型是String(即我们需要处理的类型)
-//            //返回一个转换的Converter对象
-//            return new Converter<ResponseBody, String>() {
-//                //converter对象实现其抽象方法,将当前类型数据转换成目标类型的convert方法
-//                @Override
-//                public String convert(ResponseBody value)     throws IOException {
-//                    return value==null?null:value.toString();
-//                }
-//            };
-//        }
-//        if (List.class.equals(type)) {
-//            //如果需要处理的类型是String(即我们需要处理的类型)
-//            //返回一个转换的Converter对象
-//            return new Converter<ResponseBody, String>() {
-//                //converter对象实现其抽象方法,将当前类型数据转换成目标类型的convert方法
-//                @Override
-//                public String convert(ResponseBody value)     throws IOException {
-//                    return value==null?null:value.toString();
-//                }
-//            };
-//        }
         TypeAdapter<?> adapter = gson.getAdapter(TypeToken.get(type));
         return new ResponseConverterFactory<>(gson, adapter);
     }

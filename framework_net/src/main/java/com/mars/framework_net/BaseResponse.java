@@ -4,7 +4,7 @@ public class BaseResponse<T> {
 
     private int errorCode;
     private T data;
-    private String msg;
+    private String errorMsg;
 
     public int getErrorCode() {
         return errorCode;
@@ -22,11 +22,20 @@ public class BaseResponse<T> {
         this.data = data;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getErrorMsg() {
+        return errorMsg;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseResponse{" +
+                "errorCode=" + errorCode +
+                ", data=" + data +
+                ", errorMsg='" + errorMsg + '\'' +
+                '}';
     }
 }

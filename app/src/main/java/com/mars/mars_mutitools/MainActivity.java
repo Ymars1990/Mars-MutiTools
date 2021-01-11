@@ -19,7 +19,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     protected void bindViewModel() {
         mDataBinding.setViewModel(mViewModel);
-
+        mViewModel.getWxarticle();
     }
 
     @Override
@@ -29,7 +29,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     protected void initData() {
-
     }
 
     @Override

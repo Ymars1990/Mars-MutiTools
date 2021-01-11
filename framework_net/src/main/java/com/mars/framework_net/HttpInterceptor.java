@@ -2,6 +2,7 @@ package com.mars.framework_net;
 
 import com.mars.framework_comutils_java.JsonFormaterUtils;
 import com.mars.framework_comutils_java.LogUtils;
+import com.mars.framework_comutils_java.SystemUtils;
 
 import java.io.IOException;
 
@@ -25,13 +26,13 @@ public class HttpInterceptor implements Interceptor {
 
         MediaType mediaType = response.body().contentType();
         String content = response.body().string();
-        LogUtils.logI(TAG, "Request Start--->");
+        LogUtils.logI(TAG, "Request Start", System.currentTimeMillis());
         LogUtils.logI(TAG, String.format("url:%s", request.url()));
         LogUtils.logI(TAG, String.format("Mothod:%s", request.method()));
         LogUtils.logI(TAG, String.format("headers:%s", request.headers().toString()));
         LogUtils.logI(TAG, String.format("request:%s", request_body));
-        LogUtils.logI("response", String.format("response:%s", JsonFormaterUtils.format(content)));
-        LogUtils.logI(TAG, "Request End--->");
+        LogUtils.logI(TAG, String.format("response:%s", JsonFormaterUtils.format(content)));
+        LogUtils.logI(TAG, "Request End", System.currentTimeMillis());
         return response.newBuilder().body(ResponseBody.create(mediaType, content)).build();
     }
 }

@@ -41,7 +41,6 @@ public abstract class BaseActivity<DB extends ViewDataBinding, VM extends BaseVi
         initData();
         initViewModel();
         bindViewModel();
-
         initLoadState();
 
 
@@ -98,7 +97,7 @@ public abstract class BaseActivity<DB extends ViewDataBinding, VM extends BaseVi
             mViewModel.loadState.observe(this, new Observer<LoadStatus>() {
                 @Override
                 public void onChanged(LoadStatus loadState) {
-
+                    LogUtils.logI(TAG, loadState.toString());
                 }
             });
         }
