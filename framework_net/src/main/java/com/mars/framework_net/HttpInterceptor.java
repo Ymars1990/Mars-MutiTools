@@ -5,12 +5,15 @@ import com.mars.framework_comutils_java.LogUtils;
 import com.mars.framework_comutils_java.SystemUtils;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okio.Buffer;
 
 public class HttpInterceptor implements Interceptor {
     private String TAG = HttpInterceptor.class.getSimpleName();
@@ -23,7 +26,13 @@ public class HttpInterceptor implements Interceptor {
         sb.append(url);
         String request_body = "";
         Response response = chain.proceed(request);
-
+        if(request!=null) {
+            RequestBody requestBody = request.body();
+            Buffer buffer = new Buffer();
+            requestBody.writeTo(buffer);
+            Charset charset = Charset.forName("UTF-8");
+            request_body = buffer.readString(charset);
+        }
         MediaType mediaType = response.body().contentType();
         String content = response.body().string();
         LogUtils.logI(TAG, "Request Start", System.currentTimeMillis());

@@ -15,6 +15,10 @@ import androidx.lifecycle.Observer;
 
 import com.mars.framework_base.R;
 import com.mars.framework_base.databinding.ActivityBaseBinding;
+import com.mars.framework_base.databinding.ViewLoadErrorBinding;
+import com.mars.framework_base.databinding.ViewLoadingBinding;
+import com.mars.framework_base.databinding.ViewNoDataBinding;
+import com.mars.framework_base.databinding.ViewNoNetworkBinding;
 import com.mars.framework_comutils_java.LogUtils;
 import com.mars.framework_comutils_java.annotation.LoadStatus;
 
@@ -27,6 +31,14 @@ public abstract class BaseActivity<DB extends ViewDataBinding, VM extends BaseVi
     protected VM mViewModel;
 
     private ActivityBaseBinding mActivityBaseBinding;
+
+    private ViewLoadingBinding mViewLoadingBinding;
+
+    private ViewLoadErrorBinding mViewLoadErrorBinding;
+
+    private ViewNoNetworkBinding mViewNoNetworkBinding;
+
+    private ViewNoDataBinding mViewNoDataBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +110,48 @@ public abstract class BaseActivity<DB extends ViewDataBinding, VM extends BaseVi
                 @Override
                 public void onChanged(LoadStatus loadState) {
                     LogUtils.logI(TAG, loadState.toString());
+                    switchLoadView(loadState);
                 }
             });
+        }
+    }
+
+    private void removeLoadView() {
+        int childCount = mActivityBaseBinding.flContentContainer.getChildCount();
+        if (childCount > 1) {
+            mActivityBaseBinding.flContentContainer.removeViews(1, childCount - 1);
+        }
+    }
+
+    private void switchLoadView(LoadStatus loadState) {
+        removeLoadView();
+
+        if (loadState == LoadStatus.Type.LOAD_LOADING) {
+            if (mViewLoadingBinding == null) {
+                mViewLoadingBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.view_loading,
+                        mActivityBaseBinding.flContentContainer, false);
+            }
+            mActivityBaseBinding.flContentContainer.addView(mViewLoadingBinding.getRoot());
+        } else if (loadState == LoadStatus.Type.LOAD_NEWWORK_ERROR) {
+            if (mViewNoNetworkBinding == null) {
+                mViewNoNetworkBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.view_no_network,
+                        mActivityBaseBinding.flContentContainer, false);
+                mViewNoNetworkBinding.setViewModel(mViewModel);
+            }
+            mActivityBaseBinding.flContentContainer.addView(mViewNoNetworkBinding.getRoot());
+        } else if (loadState == LoadStatus.Type.LOAD_DATA_ERROR) {
+            if (mViewNoDataBinding == null) {
+                mViewNoDataBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.view_no_data,
+                        mActivityBaseBinding.flContentContainer, false);
+            }
+            mActivityBaseBinding.flContentContainer.addView(mViewNoDataBinding.getRoot());
+        } else if (loadState == LoadStatus.Type.LOAD_FAILED) {
+            if (mViewLoadErrorBinding == null) {
+                mViewLoadErrorBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.view_load_error,
+                        mActivityBaseBinding.flContentContainer, false);
+            }
+            mActivityBaseBinding.flContentContainer.addView(mViewLoadErrorBinding.getRoot());
+
         }
     }
 

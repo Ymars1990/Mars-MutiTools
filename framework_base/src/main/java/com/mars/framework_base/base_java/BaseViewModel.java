@@ -8,7 +8,7 @@ import com.mars.framework_comutils_java.annotation.LoadStatus;
 public abstract class BaseViewModel extends ViewModel implements BaseLifeCycleObsever {
 
     protected String TAG = BaseViewModel.class.getSimpleName();
-    
+    protected MutableLiveData<LoadStatus> loadStatus = new MutableLiveData<>();
     /**
      * 加载状态
      */

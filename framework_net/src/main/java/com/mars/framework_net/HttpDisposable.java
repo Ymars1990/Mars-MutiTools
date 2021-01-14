@@ -20,9 +20,9 @@ public abstract class HttpDisposable<T> extends DisposableObserver<T> {
     @Override
     public void onError(Throwable e) {
         if (e instanceof HttpException) {
-            onError(e, ((HttpException) e).getCode(), e.getMessage());
+            onError(((HttpException) e).getCode(), e.getMessage());
         } else {
-            onError(e, 0xEE, String.format("异常[%s]", e.getMessage()));
+            onError(0xEE, String.format("异常[%s]", e.getMessage()));
         }
     }
 
@@ -33,5 +33,5 @@ public abstract class HttpDisposable<T> extends DisposableObserver<T> {
 
     public abstract void onSuccess(T o);
 
-    public abstract void onError(Throwable e, int code, String msg);
+    public abstract void onError(int code, String msg);
 }

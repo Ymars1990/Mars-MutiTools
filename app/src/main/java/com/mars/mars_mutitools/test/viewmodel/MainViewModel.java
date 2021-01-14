@@ -17,19 +17,7 @@ public class MainViewModel extends BaseViewModel {
 
     public MainViewModel() {
         TAG = this.getClass().getSimpleName();
-        userBean = new MutableLiveData<>();
     }
-
-    /**
-     * 自动登陆
-     *
-     * @param name
-     * @param pwd
-     */
-    /**
-     * 登陆用户信息
-     */
-    private MutableLiveData<LoginBean> userBean;
 
 
     public void getWxarticle() {
@@ -43,8 +31,8 @@ public class MainViewModel extends BaseViewModel {
                     }
 
                     @Override
-                    public void onError(Throwable e, int code, String msg) {
-                        LogUtils.logI(TAG, String.format("code[%s],Msg[%s],Erro[%s]", code, msg, e.getMessage()));
+                    public void onError(int code, String msg) {
+                        LogUtils.logI(TAG, String.format("code[%s],Msg[%s],Erro[%s]", code, msg));
                     }
                 });
     }

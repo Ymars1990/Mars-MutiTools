@@ -42,17 +42,20 @@ class ResponseConverterFactory<T> implements Converter<ResponseBody, T> {
         try {
             JSONObject object = new JSONObject(jsonString);
             int status = object.getInt(RESPONSE_CODE);
-            if (status == NetConstant.REQUSET_SUCCESS_CODE) {
-                if (!StringUtils.isNotNullString(object.getString(RESPONSE_DATA))) {
-                    throw new HttpException(status, "请求数据异常[0xE1]");
-                }
-            } else {
-                if (!StringUtils.isNotNullString(object.getString(RESPONSE_MSG))) {
+            String msg = object.getString(RESPONSE_MSG);
+            if (status != NetConstant.REQUSET_SUCCESS_CODE) {
+                if (StringUtils.isNullString(msg)) {
+                    LogUtils.logI("ResponseConverterFactory", "RESPONSE_MSG is null");
                     throw new HttpException(status, "请求数据异常[0xE2]");
+                } else {
+                    throw new HttpException(status, msg);
                 }
             }
+            if (object.getJSONObject(RESPONSE_DATA) == null) {
+                LogUtils.logI("ResponseConverterFactory", "RESPONSE_DATA is null");
+                throw new HttpException(status, "请求数据异常[0xE1]");
+            }
             return adapter.fromJson(object.getString("data"));
-
         } catch (JSONException e) {
             e.printStackTrace();
             //数据解析异常
