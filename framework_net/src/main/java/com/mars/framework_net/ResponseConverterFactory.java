@@ -56,7 +56,7 @@ class ResponseConverterFactory<T> implements Converter<ResponseBody, T> {
         } catch (JSONException e) {
             e.printStackTrace();
             //数据解析异常
-            throw new HttpException(0xE3, String.format("请求数据解析异常[%s][0xE3]", e.getMessage()));
+            throw new HttpException(0xE3, String.format("请求数据解析异常[%s]", e.getMessage()));
         } finally {
             value.close();
         }

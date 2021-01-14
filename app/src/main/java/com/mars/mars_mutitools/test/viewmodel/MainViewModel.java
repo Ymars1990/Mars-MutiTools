@@ -43,11 +43,6 @@ public class MainViewModel extends BaseViewModel {
                     }
 
                     @Override
-                    public void onFailed(int code, String msg) {
-                        LogUtils.logI(TAG, String.format("code[%s],Msg[%s]", code, msg));
-                    }
-
-                    @Override
                     public void onError(Throwable e, int code, String msg) {
                         LogUtils.logI(TAG, String.format("code[%s],Msg[%s],Erro[%s]", code, msg, e.getMessage()));
                     }
