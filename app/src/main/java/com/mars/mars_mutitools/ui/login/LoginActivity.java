@@ -5,7 +5,6 @@ import android.view.View;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.mars.framework_base.base_java.BaseActivity;
-import com.mars.framework_comutils_java.annotation.LoadStatus;
 import com.mars.mars_mutitools.R;
 import com.mars.mars_mutitools.databinding.ActivityLoginBinding;
 

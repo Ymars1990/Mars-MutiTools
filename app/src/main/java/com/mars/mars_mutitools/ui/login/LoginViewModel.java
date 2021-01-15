@@ -34,7 +34,8 @@ public class LoginViewModel extends BaseViewModel {
 
                     @Override
                     public void onError(int code, String msg) {
-                        loadState.postValue(LoadStatus.Type.LOAD_FAILED);
+                        loadStatus.postValue(LoadStatus.Type.LOAD_FAILED);
+                        tipMsg.postValue(msg);
                         LogUtils.logI(TAG, String.format("code[%s],Msg[%s]", code, msg));
                     }
                 });

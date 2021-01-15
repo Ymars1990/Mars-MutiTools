@@ -20,6 +20,7 @@ import com.mars.framework_base.databinding.ViewLoadingBinding;
 import com.mars.framework_base.databinding.ViewNoDataBinding;
 import com.mars.framework_base.databinding.ViewNoNetworkBinding;
 import com.mars.framework_comutils_java.LogUtils;
+import com.mars.framework_comutils_java.StringUtils;
 import com.mars.framework_comutils_java.annotation.LoadStatus;
 
 public abstract class BaseActivity<DB extends ViewDataBinding, VM extends BaseViewModel> extends AppCompatActivity implements View.OnClickListener {
@@ -106,7 +107,7 @@ public abstract class BaseActivity<DB extends ViewDataBinding, VM extends BaseVi
 
     private void initLoadState() {
         if (mViewModel != null) {
-            mViewModel.loadState.observe(this, new Observer<LoadStatus>() {
+            mViewModel.loadStatus.observe(this, new Observer<LoadStatus>() {
                 @Override
                 public void onChanged(LoadStatus loadState) {
                     LogUtils.logI(TAG, loadState.toString());
@@ -151,7 +152,7 @@ public abstract class BaseActivity<DB extends ViewDataBinding, VM extends BaseVi
                         mActivityBaseBinding.flContentContainer, false);
             }
             mActivityBaseBinding.flContentContainer.addView(mViewLoadErrorBinding.getRoot());
-
+            mViewModel.tipMsg.observeForever(s -> mViewLoadErrorBinding.tvLoadError.setText(StringUtils.isNotNullString(s) ? s : getResources().getString(R.string.load_error)));
         }
     }
 
