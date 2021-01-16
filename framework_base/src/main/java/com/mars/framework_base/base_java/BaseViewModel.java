@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.mars.framework_base.R;
 import com.mars.framework_comutils_java.annotation.LoadStatus;
 
 public abstract class BaseViewModel extends ViewModel implements BaseLifeCycleObsever {
@@ -22,4 +21,6 @@ public abstract class BaseViewModel extends ViewModel implements BaseLifeCycleOb
         return resources;
     }
 
+    public void reloadData() {
+    }
 }

@@ -1,12 +1,11 @@
 package com.mars.mars_mutitools.ui.login;
 
-import android.widget.Toast;
-
 import androidx.lifecycle.MutableLiveData;
 
+import com.mars.framework_base.base_java.BaseApplication;
 import com.mars.framework_base.base_java.BaseViewModel;
 import com.mars.framework_comutils_java.LogUtils;
-import com.mars.framework_comutils_java.ToastManger;
+import com.mars.framework_comutils_java.NetworkUtils;
 import com.mars.framework_comutils_java.annotation.LoadStatus;
 import com.mars.framework_net.HttpDisposable;
 import com.mars.framework_net.HttpManager;
@@ -21,6 +20,11 @@ public class LoginViewModel extends BaseViewModel {
     private MutableLiveData<LoginBean> userBean = new MutableLiveData<>();
 
     public void login(String password, String username) {
+        //判断网络
+        if (!NetworkUtils.isConnected(BaseApplication.getSingleton())) {
+            loadStatus.postValue(LoadStatus.Type.LOAD_NEWWORK_ERROR);
+            return;
+        }
         HttpManager.get().getRetrofit().create(ApiInterface.class).login(password, username)
                 .compose(HttpManager.schedulers())
                 .subscribe(new HttpDisposable<LoginBean>() {
@@ -39,5 +43,10 @@ public class LoginViewModel extends BaseViewModel {
                         LogUtils.logI(TAG, String.format("code[%s],Msg[%s]", code, msg));
                     }
                 });
+    }
+
+    @Override
+    public void reloadData() {
+        login("Mars1990", "12345678");
     }
 }

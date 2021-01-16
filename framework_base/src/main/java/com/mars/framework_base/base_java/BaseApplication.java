@@ -7,9 +7,11 @@ import androidx.multidex.MultiDexApplication;
 public abstract class BaseApplication extends MultiDexApplication {
     private volatile static BaseApplication singleton = null;
     private static Context context;
+
     public static Context getContext() {
         return context;
     }
+
     public static BaseApplication getSingleton() {
         return singleton;
     }
@@ -18,5 +20,6 @@ public abstract class BaseApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         singleton = this;
+        context = this;
     }
 }
