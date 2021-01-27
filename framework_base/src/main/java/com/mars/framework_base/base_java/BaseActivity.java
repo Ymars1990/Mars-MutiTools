@@ -117,14 +117,14 @@ public abstract class BaseActivity<DB extends ViewDataBinding, VM extends BaseVi
         }
     }
 
-    private void removeLoadView() {
+    protected void removeLoadView() {
         int childCount = mActivityBaseBinding.flContentContainer.getChildCount();
         if (childCount > 1) {
             mActivityBaseBinding.flContentContainer.removeViews(1, childCount - 1);
         }
     }
 
-    private void switchLoadView(LoadStatus loadState) {
+    protected void switchLoadView(LoadStatus loadState) {
         removeLoadView();
 
         if (loadState == LoadStatus.Type.LOAD_LOADING) {

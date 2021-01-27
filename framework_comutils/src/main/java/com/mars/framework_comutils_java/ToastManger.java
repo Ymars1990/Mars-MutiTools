@@ -1,6 +1,7 @@
 package com.mars.framework_comutils_java;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.widget.Toast;
 
 /**
@@ -13,10 +14,9 @@ public class ToastManger {
     public static void showToast(Context mCtx, String msg) {
         if (StringUtils.isNotNullString(msg) && mCtx != null) {
             if (toast == null) {
-                toast = new Toast(mCtx);
+                toast = Toast.makeText(mCtx, msg, Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
             }
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setText(msg);
             toast.show();
         }
     }
@@ -24,10 +24,10 @@ public class ToastManger {
     public static void showToast(Context mCtx, String msg, int duration) {
         if (StringUtils.isNotNullString(msg) && mCtx != null) {
             if (toast == null) {
-                toast = new Toast(mCtx);
+                toast = Toast.makeText(mCtx, msg, Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.setDuration(duration);
             }
-            toast.setDuration(duration);
-            toast.setText(msg);
             toast.show();
         }
     }

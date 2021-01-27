@@ -19,13 +19,13 @@ public class LoginViewModel extends BaseViewModel {
      */
     private MutableLiveData<LoginBean> userBean = new MutableLiveData<>();
 
-    public void login(String password, String username) {
+    public void login(String username, String password) {
         //判断网络
         if (!NetworkUtils.isConnected(BaseApplication.getSingleton())) {
             loadStatus.postValue(LoadStatus.Type.LOAD_NEWWORK_ERROR);
             return;
         }
-        HttpManager.get().getRetrofit().create(ApiInterface.class).login(password, username)
+        HttpManager.get().getRetrofit().create(ApiInterface.class).login(username, password)
                 .compose(HttpManager.schedulers())
                 .subscribe(new HttpDisposable<LoginBean>() {
 
