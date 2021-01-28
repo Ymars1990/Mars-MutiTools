@@ -1,13 +1,10 @@
 package com.mars.mars_mutitools.test.viewmodel;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.mars.framework_base.base_java.BaseViewModel;
 import com.mars.framework_comutils_java.LogUtils;
 import com.mars.framework_net.HttpDisposable;
 import com.mars.framework_net.HttpManager;
 import com.mars.mars_mutitools.test.ApiInterface;
-import com.mars.mars_mutitools.test.bean.LoginBean;
 import com.mars.mars_mutitools.test.bean.WeChatBean;
 
 import java.util.ArrayList;

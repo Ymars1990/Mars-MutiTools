@@ -1,7 +1,5 @@
 package com.mars.mars_mutitools.test;
 
-import com.mars.framework_net.BaseResponse;
-import com.mars.mars_mutitools.test.bean.LoginBean;
 import com.mars.mars_mutitools.test.bean.WeChatBean;
 
 import java.util.ArrayList;
@@ -16,10 +14,4 @@ public interface ApiInterface {
 
     @GET("/wxarticle/chapters/json")
     Observable<ArrayList<WeChatBean>> getWxarticle();
-
-
-    @FormUrlEncoded
-    @POST("user/login")
-    Observable<LoginBean> login(@Field("username") String username, @Field("password") String password);
-
 }

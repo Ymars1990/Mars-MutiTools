@@ -1,14 +1,16 @@
-package com.mars.mars_mutitools.ui.login;
+package com.mars.biz_user.ui.activity;
 
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import com.mars.biz_user.R;
+import com.mars.biz_user.databinding.ActivityLoginBinding;
+import com.mars.biz_user.viewmodel.LoginViewModel;
 import com.mars.framework_base.base_java.BaseActivity;
 import com.mars.framework_comutils_java.ToastManger;
 import com.mars.framework_comutils_java.annotation.LoadStatus;
-import com.mars.mars_mutitools.R;
-import com.mars.mars_mutitools.databinding.ActivityLoginBinding;
+
 
 public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewModel> {
 
@@ -35,10 +37,8 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.login:
-                mViewModel.login(mDataBinding.username.getText().toString(), mDataBinding.password.getText().toString());
-                break;
+        if (v.getId() == R.id.login) {
+            mViewModel.login(mDataBinding.username.getText().toString(), mDataBinding.password.getText().toString());
         }
     }
 

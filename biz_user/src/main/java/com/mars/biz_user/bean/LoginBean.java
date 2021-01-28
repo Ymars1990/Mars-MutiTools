@@ -1,4 +1,4 @@
-package com.mars.mars_mutitools.test.bean;
+package com.mars.biz_user.bean;
 
 import java.util.List;
 

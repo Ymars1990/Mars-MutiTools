@@ -1,7 +1,9 @@
-package com.mars.mars_mutitools.ui.login;
+package com.mars.biz_user.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.mars.biz_user.UserApiInterface;
+import com.mars.biz_user.bean.LoginBean;
 import com.mars.framework_base.base_java.BaseApplication;
 import com.mars.framework_base.base_java.BaseViewModel;
 import com.mars.framework_comutils_java.LogUtils;
@@ -9,8 +11,7 @@ import com.mars.framework_comutils_java.NetworkUtils;
 import com.mars.framework_comutils_java.annotation.LoadStatus;
 import com.mars.framework_net.HttpDisposable;
 import com.mars.framework_net.HttpManager;
-import com.mars.mars_mutitools.test.ApiInterface;
-import com.mars.mars_mutitools.test.bean.LoginBean;
+
 
 public class LoginViewModel extends BaseViewModel {
 
@@ -25,7 +26,7 @@ public class LoginViewModel extends BaseViewModel {
             loadStatus.postValue(LoadStatus.Type.LOAD_NEWWORK_ERROR);
             return;
         }
-        HttpManager.get().getRetrofit().create(ApiInterface.class).login(username, password)
+        HttpManager.get().getRetrofit().create(UserApiInterface.class).login(username, password)
                 .compose(HttpManager.schedulers())
                 .subscribe(new HttpDisposable<LoginBean>() {
 

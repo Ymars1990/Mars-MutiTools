@@ -37,7 +37,18 @@ allprojects {
         google()
     }
 }
+subprojects {
+    project.configurations.all {
+        resolutionStrategy.eachDependency(new Action<DependencyResolveDetails>() {
+            @Override
+            void execute(DependencyResolveDetails details) {
+                String group = details.requested.group
+                String name = details.requested.name
 
+            }
+        })
+    }
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

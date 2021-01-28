@@ -39,11 +39,35 @@ dependencies {
     api 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
-    implementation project(path: ':framework_comutils')
-    api project(path: ':framework_net')
+
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    api "android.arch.lifecycle:common-java8:1.1.1"
+    api project(path: ':framework_comutils')
+    api project(path: ':framework_net')
+
+    // ViewModel
+    api "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
+    // LiveData
+    api "androidx.lifecycle:lifecycle-livedata:2.2.0"
+    // Lifecycles only (without ViewModel or LiveData)
+    api "androidx.lifecycle:lifecycle-runtime:2.2.0"
+
+    // Saved state module for ViewModel
+    api "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0"
+
+    // Annotation processor
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    api "androidx.lifecycle:lifecycle-common-java8:2.2.0"
+
+    // optional - helpers for implementing LifecycleOwner in a Service
+    api "androidx.lifecycle:lifecycle-service:2.2.0"
+
+    // optional - ProcessLifecycleOwner provides a lifecycle for the whole application process
+    api "androidx.lifecycle:lifecycle-process:2.2.0"
+
+    // optional - ReactiveStreams support for LiveData
+    api "androidx.lifecycle:lifecycle-reactivestreams:2.2.0"
+
 }

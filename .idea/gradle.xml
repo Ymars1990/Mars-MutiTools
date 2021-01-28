@@ -13,6 +13,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/biz_ad" />
+            <option value="$PROJECT_DIR$/biz_user" />
             <option value="$PROJECT_DIR$/framework_base" />
             <option value="$PROJECT_DIR$/framework_comutils" />
             <option value="$PROJECT_DIR$/framework_net" />
